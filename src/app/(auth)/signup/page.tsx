@@ -1,0 +1,46 @@
+import { Metadata } from "next";
+import signUpImage from "@/assets/signup-img.jpg";
+import logo from "@/assets/open_link_logo_favicon.png";
+import Image from "next/image";
+import Link from "next/link";
+import SignUpForm from "./SignUpForm";
+
+/**Sign Up:  */
+
+export const metadata: Metadata = {
+  title: "Sign Up",
+};
+
+export default function Page() {
+  return (
+    <main className="flex h-screen items-center justify-center p-5">
+      <div className="rounded=2xl bg-card flex h-full max-h-[55rem] w-full max-w-[64rem] overflow-hidden shadow-2xl">
+        <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
+          <div className="space-y-1 text-center">
+            <Image src={logo} alt="" className="mx-auto justify-center" />
+            <h1 className="text-3xl font-bold">Sign up to OPENLiNK</h1>
+            <p className="text-muted-foreground">
+              Connect with{" "}
+              <span className="italic">Open Source Contributors</span> and{" "}
+              <span className="italic">Project Teams</span> and discover
+              exciting innovations in todays ever evolving and expanding tech
+              eco-system.
+            </p>
+          </div>
+          {/* Sign Up Form */}
+          <div className="space-y-5">
+            <SignUpForm />
+            <Link href="/login" className="block text-center hover:underline">
+              Already have an Account? Log In
+            </Link>
+          </div>
+        </div>
+        <Image
+          src={signUpImage}
+          alt="Sign Up"
+          className="hidden w-1/2 object-cover md:block"
+        />
+      </div>
+    </main>
+  );
+}
