@@ -76,7 +76,7 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        {/* username */}
+        {/* password */}
         <FormField
           control={form.control}
           name="password"

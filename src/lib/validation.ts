@@ -25,3 +25,8 @@ export const loginSchema = z.object({
 });
 
 export type LoginValues = z.infer<typeof loginSchema>;
+
+/**Validation Schema for Posts */
+export const createPostSchema = z.object({
+  content: required_string,
+});
