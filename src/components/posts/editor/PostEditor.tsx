@@ -14,6 +14,7 @@ import "./styles.css";
  * Client Component: use custom hooks to get session / user data
  */
 
+//  time stamp: 3:52:06
 export default function PostEditor() {
   // retrieve authenticated user
   const { user } = useSession();
@@ -46,7 +47,10 @@ export default function PostEditor() {
   return (
     <div className="bg-card flex flex-col gap-5 rounded-2xl p-5 shadow-sm">
       <div className="flex gap-5">
-        <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
+        <UserAvatar
+          avatarUrl={user.avatarUrl}
+          className="mt-4 hidden sm:inline"
+        />
         <EditorContent
           editor={editor}
           className="bg-background max-h-[20rem] w-full overflow-y-auto rounded-2xl px-5 py-3"

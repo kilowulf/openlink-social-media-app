@@ -1,11 +1,31 @@
+/* Placeholder styling for empty editor */
 .tiptap p.is-editor-empty:first-child::before {
-  color: theme("colors.muted.foreground");
   content: attr(data-placeholder);
   float: left;
   height: 0;
   pointer-events: none;
+  font-style: italic;
+  color: #afb5c0; /* Light gray for the placeholder text */
 }
 
+/* Styling for the editor container */
 .tiptap.ProseMirror {
   outline: none;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the editor */
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #e5e7eb; /* Light border to make the editor stand out */
+  padding: 1rem; /* Add padding inside the editor */
+  transition: box-shadow 0.2s ease-in-out; /* Smooth transition for shadow effect */
+}
+
+/* Add a hover state to show interactivity */
+.tiptap.ProseMirror:hover {
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  border-color: #04535d; /* Border changes color on hover */
+}
+
+/* Focused state when users start typing or click inside */
+.tiptap.ProseMirror:focus {
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.2); /* More prominent shadow when focused */
+  border-color: #04535d; /* Border changes color on hover */ /* Highlight the editor when focused */
 }
