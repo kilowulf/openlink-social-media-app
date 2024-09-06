@@ -20,3 +20,9 @@ export const postDataInclude = {
 export type PostData = Prisma.PostGetPayload<{
   include: typeof postDataInclude;
 }>;
+
+// Pagination helper: autocomplete / typescript help
+export interface PostsPage {
+  posts: PostData[];
+  nextCursor: string | null;
+}

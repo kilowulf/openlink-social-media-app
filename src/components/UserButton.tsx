@@ -19,6 +19,7 @@ import { logout } from "@/app/(auth)/actions";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { DropdownMenuSubTrigger } from "@radix-ui/react-dropdown-menu";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UserButtonProps {
   className?: string;
@@ -30,6 +31,9 @@ export default function UserButton({ className }: UserButtonProps) {
 
   // use theme hook to set light / dark toggle
   const { theme, setTheme } = useTheme();
+
+  // use query client hook to clear cache
+  const queryClient = useQueryClient();
 
   return (
     <DropdownMenu>
@@ -75,6 +79,8 @@ export default function UserButton({ className }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
+            // clear query cache
+            queryClient.clear();
             logout();
           }}
         >

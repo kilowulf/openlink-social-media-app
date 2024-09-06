@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Format post dates by relative time:
 export function formatRelativeDate(from: Date) {
   // Retrieve current time
   const currentDate = new Date();
@@ -21,4 +22,12 @@ export function formatRelativeDate(from: Date) {
       return formatDate(from, "MMM d, yyyy");
     }
   }
+}
+
+// formatting of large number values: Trending Projects
+export function formatNumber(n: number): string {
+  return Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(n);
 }
