@@ -38,7 +38,6 @@ export default function InfiniteScrollContainer({
 
   return (
     <div className={className}>
-      {" "}
       {/* The main container for the scrollable content */}
       {children} {/* Render the children (posts, data, etc.) */}
       <div ref={ref} />

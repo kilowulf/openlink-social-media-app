@@ -3,10 +3,9 @@
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import Post from "@/components/posts/Post";
 import PostsLoadingScaffold from "@/components/posts/PostsLoadingScaffold";
-import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/kyFetchExtension";
-import { PostData, PostsPage } from "@/lib/types";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { PostsPage } from "@/lib/types";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 
 /** Feed Query: Client side
@@ -61,7 +60,7 @@ export default function FeedForYou() {
   return (
     <InfiniteScrollContainer
       className="space-y-5"
-      onBottomReached={() => !isFetching && fetchNextPage()}
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (
         <Post key={post.id} post={post} />
