@@ -9,11 +9,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 
 /** Feed Query: Client side
- * displays post feeds 
+ * displays feeds user is following
  *
  */
 
-export default function FeedForYou() {
+export default function FollowingFeed() {
   // infinite loading
   const {
     data,
@@ -23,11 +23,11 @@ export default function FeedForYou() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["posts-feed", "for-you"],
+    queryKey: ["posts-feed", "following"],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/for-you",
+          "/api/posts/following",
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
@@ -45,7 +45,7 @@ export default function FeedForYou() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-muted-foreground text-center">
-        No more posts to show. Come back later for more!
+        No posts found. Begin following others to see their posts here.
       </p>
     );
   }

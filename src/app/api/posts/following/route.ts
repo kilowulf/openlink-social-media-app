@@ -3,7 +3,8 @@ import prisma from "@/lib/prisma";
 import { getPostDataInclude, PostsPage } from "@/lib/types";
 import { NextRequest } from "next/server";
 
-/**  Posts: Server endpoint: Get and Post request
+/**  Follower: Server endpoint: Get and Post request
+ * returns validated users who are followers
  * Grabs user posts from db
  * note: Server Actions are always post requests
  *
@@ -22,10 +23,19 @@ export async function GET(req: NextRequest) {
 
     // retrieve user posts
     const posts = await prisma.post.findMany({
-      include: getPostDataInclude(user.id),
+      where: {
+        user: {
+          followers: {
+            some: {
+              followerId: user.id,
+            },
+          },
+        },
+      },
       orderBy: { createdAt: "desc" },
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
+      include: getPostDataInclude(user.id),
     });
 
     const nextCursor = posts.length > pageSize ? posts[pageSize].id : null;
