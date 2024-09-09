@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { submitPost } from "./actions";
 import { PostsPage } from "@/lib/types";
+import { useSession } from "@/app/(main)/SessionProvider";
 
 /**SubmitPostMutation:
  * allows for instantaneous post submission and display
@@ -18,13 +19,25 @@ export function useSubmitPostMutation() {
 
   // react query hook
   const queryClient = useQueryClient();
+  // get current user
+  const { user } = useSession();
 
   const mutation = useMutation({
     // pass as a reference
     mutationFn: submitPost,
     onSuccess: async (newPost) => {
       // retrieve post cache
-      const queryFilter: QueryFilters = { queryKey: ["post-feed", "for-you"] };
+      const queryFilter = {
+        queryKey: ["post-feed"],
+        predicate(query) {
+          return (
+            query.queryKey.includes("for-you") ||
+            (query.queryKey.includes("user-posts") &&
+              query.queryKey.includes(user.id))
+          );
+        },
+      } satisfies QueryFilters;
+
       // cancel any pending queries
       await queryClient.cancelQueries(queryFilter);
       // mutate posts in cache
@@ -51,7 +64,7 @@ export function useSubmitPostMutation() {
       queryClient.invalidateQueries({
         queryKey: queryFilter.queryKey,
         predicate(query) {
-          return !query.state.data;
+          return queryFilter.predicate(query) && !query.state.data;
         },
       });
 

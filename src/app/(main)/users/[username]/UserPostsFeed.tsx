@@ -8,12 +8,16 @@ import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 
-/** Feed Query: Client side
- * displays feeds user is following
+/** User Post Feed Query: Client side
+ * displays post feeds
  *
  */
 
-export default function FollowingFeed() {
+interface UserPostFeedProps {
+  userId: string;
+}
+
+export default function UserPostFeed({ userId }: UserPostFeedProps) {
   // infinite loading
   const {
     data,
@@ -23,11 +27,11 @@ export default function FollowingFeed() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["posts-feed", "following"],
+    queryKey: ["posts-feed", "user-posts", userId],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/following",
+          `/api/users/${userId}/posts`,
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
@@ -45,7 +49,7 @@ export default function FollowingFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-muted-foreground text-center">
-        No posts found. Begin following others to see their posts here.
+        This user hasn&apos;t posted anything yet
       </p>
     );
   }
@@ -65,7 +69,7 @@ export default function FollowingFeed() {
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetchingNextPage && <Loader2 className="mx-auto animate-spin" />}
     </InfiniteScrollContainer>
   );
 }

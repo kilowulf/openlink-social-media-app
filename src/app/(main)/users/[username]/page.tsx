@@ -11,6 +11,7 @@ import { formatDate } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import UserPostFeed from "./UserPostsFeed";
 
 /** User Profile Page:
  *
@@ -63,8 +64,14 @@ export default async function Page({ params: { username } }: PageProps) {
 
   return (
     <main className="flex w-full min-w-0 gap-5">
-      <div className="flex w-full min-w-0 space-y-5">
+      <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
+        <div className="bg-card rounded-2xl p-5 shadow-sm">
+          <h2 className="text-center text-2xl font-bold">
+            {user.displayName}&apos;s posts
+          </h2>
+        </div>
+        <UserPostFeed userId={user.id} />
       </div>
       <TrendingSideBar />
     </main>
@@ -89,7 +96,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       <UserAvatar
         avatarUrl={user.avatarUrl}
         size={250}
-        className="max-w- mx-auto size-full max-h-60 rounded-full"
+        className="mx-auto size-full max-h-60 max-w-60 rounded-full"
       />
       <div className="flex flex-wrap gap-3 sm:flex-nowrap">
         <div className="me-auto space-y-3">
@@ -111,15 +118,18 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         {user.id === loggedInUserId ? (
           <Button>Edit Profile</Button>
         ) : (
+          // <EditProfileButton user={user} />
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
       </div>
       {user.bio && (
         <>
           <hr />
+          {/* <Linkify> */}
           <div className="overflow-hidden whitespace-pre-line break-words">
             {user.bio}
           </div>
+          {/* </Linkify> */}
         </>
       )}
     </div>

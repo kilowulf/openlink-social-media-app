@@ -1,4 +1,4 @@
-import { PostData, PostsPage } from "@/lib/types";
+import { PostsPage } from "@/lib/types";
 import { useToast } from "../ui/use-toast";
 import {
   InfiniteData,
