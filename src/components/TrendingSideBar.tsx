@@ -10,6 +10,7 @@ import { unstable_cache } from "next/cache";
 import { formatNumber } from "@/lib/utils";
 import FollowButton from "./FollowButton";
 import { getUserDataSelect } from "@/lib/types";
+import UserTooltip from "./UserTooltip";
 
 export default function TrendingSideBar() {
   return (
@@ -47,24 +48,26 @@ async function RecommendedFollow() {
   });
 
   return (
-    <div className="bg-card space-y-5 rounded-2xl p-5 shadow-sm">
+    <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="text-xl font-bold">Follow Recommendations</div>
       {recommendedFollow.map((user) => (
         <div key={user.id} className="flex items-center justify-between">
-          <Link
-            href={`/users/${user.username}`}
-            className="flex items-center gap-3"
-          >
-            <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
-            <div>
-              <p className="line-clamp-1 break-all font-semibold hover:underline">
-                {user.displayName}
-              </p>
-              <p className="text-muted-foreground line-clamp-1 break-all">
-                @{user.username}
-              </p>
-            </div>
-          </Link>
+          <UserTooltip user={user}>
+            <Link
+              href={`/users/${user.username}`}
+              className="flex items-center gap-3"
+            >
+              <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
+              <div>
+                <p className="line-clamp-1 break-all font-semibold hover:underline">
+                  {user.displayName}
+                </p>
+                <p className="line-clamp-1 break-all text-muted-foreground">
+                  @{user.username}
+                </p>
+              </div>
+            </Link>
+          </UserTooltip>
           <FollowButton
             userId={user.id}
             initialState={{
@@ -108,7 +111,7 @@ async function TrendingProjects() {
   const trendingProjects = await getTrendingProjects();
 
   return (
-    <div className="bg-card space-y-5 rounded-2xl p-5 shadow-sm">
+    <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="text-wl font-bold">Trending Projects</div>
       {trendingProjects.map(({ hashtag, count }) => {
         {
@@ -123,7 +126,7 @@ async function TrendingProjects() {
             >
               {hashtag}
             </p>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
               {formatNumber(count)} {count === 1 ? "post" : "posts"}
             </p>
           </Link>

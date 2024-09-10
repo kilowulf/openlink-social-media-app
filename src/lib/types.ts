@@ -25,6 +25,10 @@ export function getUserDataSelect(loggedInUserId: string) {
   } satisfies Prisma.UserSelect;
 }
 
+export type UserData = Prisma.UserGetPayload<{
+  select: ReturnType<typeof getUserDataSelect>;
+}>;
+
 export function getPostDataInclude(loggedInUserId: string) {
   return {
     user: {
@@ -32,24 +36,6 @@ export function getPostDataInclude(loggedInUserId: string) {
     },
   } satisfies Prisma.PostInclude;
 }
-
-export type UserData = Prisma.UserGetPayload<{
-  select: ReturnType<typeof getUserDataSelect>;
-}>;
-// //  Define data schema for user data of those followed
-// export const userDataSelect = {
-//   id: true,
-//   username: true,
-//   displayName: true,
-//   avatarUrl: true,
-// } satisfies Prisma.UserSelect;
-
-// Define the shape of data to be included when querying posts, specifically fetching the related user data.
-// export const postDataInclude = {
-//   user: {
-//     select: userDataSelect,
-//   },
-// } satisfies Prisma.PostInclude; // Ensures that the structure satisfies the Prisma type 'PostInclude'.
 
 // Define a TypeScript type 'PostData' which will represent the result of a Prisma query
 // that includes the defined 'postDataInclude'. This type will reflect the post data along with the selected user data.
@@ -63,7 +49,65 @@ export interface PostsPage {
   nextCursor: string | null;
 }
 
+export function getCommentDataInclude(loggedInUserId: string) {
+  return {
+    user: {
+      select: getUserDataSelect(loggedInUserId),
+    },
+  } satisfies Prisma.CommentInclude;
+}
+
+export type CommentData = Prisma.CommentGetPayload<{
+  include: ReturnType<typeof getCommentDataInclude>;
+}>;
+
+export interface CommentsPage {
+  comments: CommentData[];
+  previousCursor: string | null;
+}
+
+export const notificationsInclude = {
+  issuer: {
+    select: {
+      username: true,
+      displayName: true,
+      avatarUrl: true,
+    },
+  },
+  post: {
+    select: {
+      content: true,
+    },
+  },
+} satisfies Prisma.NotificationInclude;
+
+export type NotificationData = Prisma.NotificationGetPayload<{
+  include: typeof notificationsInclude;
+}>;
+
+export interface NotificationsPage {
+  notifications: NotificationData[];
+  nextCursor: string | null;
+}
+
 export interface FollowerInfo {
   followers: number;
   isFollowedByUser: boolean;
+}
+
+export interface LikeInfo {
+  likes: number;
+  isLikedByUser: boolean;
+}
+
+export interface BookmarkInfo {
+  isBookmarkedByUser: boolean;
+}
+
+export interface NotificationCountInfo {
+  unreadCount: number;
+}
+
+export interface MessageCountInfo {
+  unreadCount: number;
 }
