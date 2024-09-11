@@ -1,5 +1,4 @@
 import PostEditor from "@/components/posts/editor/PostEditor";
-import Post from "@/components/posts/Post";
 import TrendingSideBar from "@/components/TrendingSideBar";
 import prisma from "@/lib/prisma";
 import { getDisplayName } from "next/dist/shared/lib/utils";

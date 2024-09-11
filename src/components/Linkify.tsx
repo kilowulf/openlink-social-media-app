@@ -24,13 +24,10 @@ interface LinkifyProps {
 export default function Linkify({ children }: LinkifyProps) {
   return (
     <LinkifyUsername>
-      {" "}
       {/* Wraps content with logic to detect and linkify usernames */}
       <LinkifyHashtag>
-        {" "}
         {/* Wraps content with logic to detect and linkify hashtags */}
         <LinkifyUrl>
-          {" "}
           {/* Wraps content with logic to detect and linkify URLs */}
           {children}
         </LinkifyUrl>
@@ -63,7 +60,6 @@ function LinkifyUsername({ children }: LinkifyProps) {
       regex={/(@[a-zA-Z0-9_-]+)/} // Regular expression to detect usernames in the format @username
       component={(match, key) => (
         <UserLinkWithTooltip key={key} username={match.slice(1)}>
-          {" "}
           {/* Removing "@" from the matched username */}
           {match} {/* Render the @username text */}
         </UserLinkWithTooltip>

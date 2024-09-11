@@ -46,10 +46,10 @@ export default function UserLinkWithTooltip({
   if (!data) {
     return (
       <Link
-        href={`/users/${username}`} 
+        href={`/users/${username}`}
         className="text-primary hover:underline"
       >
-        {children}{" "}
+        {children}
         {/* Displays the content (e.g., the username) inside the link */}
       </Link>
     );
@@ -58,13 +58,12 @@ export default function UserLinkWithTooltip({
   // If the user data is available, wrap the link in a tooltip showing user info.
   return (
     <UserTooltip user={data}>
-      {" "}
       {/* UserTooltip component displays additional info about the user in a tooltip */}
       <Link
         href={`/users/${username}`} // Next.js Link to the user's profile.
         className="text-primary hover:underline" // Styling for the link.
       >
-        {children}{" "}
+        {children}
         {/* Displays the content (e.g., the username) inside the link */}
       </Link>
     </UserTooltip>

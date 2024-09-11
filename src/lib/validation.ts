@@ -39,6 +39,7 @@ export type LoginValues = z.infer<typeof loginSchema>;
  */
 export const createPostSchema = z.object({
   content: required_string, // Post content must not be empty
+  mediaIds: z.array(z.string()).max(5, "No more than 5 attachments allowed"),
 });
 
 // Schema for validating user profile update inputs

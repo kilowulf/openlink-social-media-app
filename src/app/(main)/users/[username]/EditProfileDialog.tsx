@@ -31,8 +31,7 @@ import { useForm } from "react-hook-form";
 import Resizer from "react-image-file-resizer";
 import { useUpdateProfileMutation } from "./mutations";
 import CropImageDialog from "@/components/CropImageDialog";
-
-// time: 1:31:41
+import "cropperjs/dist/cropper.css";
 
 /** Edit Profile Dialog:
  *

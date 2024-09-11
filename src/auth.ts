@@ -1,25 +1,35 @@
-// Prisma Adapter
+// Prisma Adapter for Lucia Authentication
+// This module integrates Lucia authentication with Prisma ORM for managing users and sessions.
+// It also provides utility functions for session validation and handling session cookies.
+
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import { Google } from "arctic";
-import prisma from "./lib/prisma";
-import { cookies } from "next/headers";
-import { Lucia, Session, User } from "lucia";
+import { Google } from "arctic"; 
+import prisma from "./lib/prisma"; 
+import { cookies } from "next/headers"; 
+import { Lucia, Session, User } from "lucia"; 
 import { cache } from "react";
 
-/** Authentication handled via Lucia: Boiler plate code taken from docs
- * working in tandem with Prisma: third party module providing streamlined packaging to
- * query databases
+/**
+ * Adapter Configuration:
+ * The PrismaAdapter connects Lucia's session and user management to the Prisma ORM,
+ * allowing for database interactions when handling users and sessions.
  */
-
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
 
+/**
+ * Lucia Configuration:
+ * - Configures session cookies to never expire unless explicitly set.
+ * - In production, the cookies will be set as secure.
+ * - Extracts necessary user attributes such as id, username, and displayName from the database.
+ */
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
     expires: false,
     attributes: {
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // Ensure cookies are marked secure in production
     },
   },
+  // Maps database attributes to user attributes
   getUserAttributes: (databaseUserAttributes) => {
     return {
       id: databaseUserAttributes.id,
@@ -32,6 +42,7 @@ export const lucia = new Lucia(adapter, {
   },
 });
 
+// Declare Lucia module augmentation for type safety when using Lucia within the app
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
@@ -39,6 +50,7 @@ declare module "lucia" {
   }
 }
 
+// Interface defining the structure of user attributes fetched from the database
 interface DatabaseUserAttributes {
   id: string;
   username: string;
@@ -48,18 +60,26 @@ interface DatabaseUserAttributes {
   githubId: string | null;
 }
 
+/**
+ * validateRequest:
+ * This function validates if the current request is authenticated by checking the session ID stored in cookies.
+ * It either returns the user and session data or null if the session is invalid or missing.
+ */
 export const validateRequest = cache(
   async (): Promise<
     { user: User; session: Session } | { user: null; session: null }
   > => {
-    const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+    const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null; // Get session ID from the cookies.
 
+    // If no session ID is found, return null values for user and session
     if (!sessionId) {
       return { user: null, session: null };
     }
-    const result = await lucia.validateSession(sessionId);
+
+    const result = await lucia.validateSession(sessionId); // Validate the session using Lucia.
 
     try {
+      // If session is valid and fresh, refresh the session cookie
       if (result.session && result.session.fresh) {
         const sessionCookie = lucia.createSessionCookie(result.session.id);
         cookies().set(
@@ -68,6 +88,8 @@ export const validateRequest = cache(
           sessionCookie.attributes,
         );
       }
+
+      // If the session is missing, set a blank session cookie
       if (!result.session) {
         const sessionCookie = lucia.createBlankSessionCookie();
         cookies().set(
@@ -76,8 +98,10 @@ export const validateRequest = cache(
           sessionCookie.attributes,
         );
       }
-    } catch {}
+    } catch (error) {
+      console.error("Error refreshing session cookie", error); // Handle any errors that occur during session validation
+    }
 
-    return result;
+    return result; // Return the result which includes the user and session or null if invalid.
   },
 );
