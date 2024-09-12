@@ -6,6 +6,7 @@ import PostsLoadingScaffold from "@/components/posts/PostsLoadingScaffold";
 import kyInstance from "@/lib/kyFetchExtension";
 import { PostsPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
+
 import { Loader2 } from "lucide-react";
 
 /** Feed Query: Client side
@@ -44,7 +45,7 @@ export default function FeedForYou() {
 
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
-      <p className="text-muted-foreground text-center">
+      <p className="text-center text-muted-foreground">
         No more posts to show. Come back later for more!
       </p>
     );
@@ -52,7 +53,7 @@ export default function FeedForYou() {
 
   if (status === "error") {
     return (
-      <p className="text-destructive text-center">
+      <p className="text-center text-destructive">
         Error occurred while loading posts
       </p>
     );
