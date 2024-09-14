@@ -81,7 +81,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Username" {...field} />{" "}
+                <Input placeholder="Username" {...field} />
                 {/* Input component */}
               </FormControl>
               <FormMessage /> {/* Form validation error message */}
@@ -97,7 +97,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <PasswordInputReveal placeholder="Password" {...field} />{" "}
+                <PasswordInputReveal placeholder="Password" {...field} />
                 {/* Password input component */}
               </FormControl>
               <FormMessage /> {/* Form validation error message */}

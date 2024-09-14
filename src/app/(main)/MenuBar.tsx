@@ -32,6 +32,8 @@ export default async function MenuBar({ className }: MenuBarProps) {
   // If no user is authenticated, do not render the menu bar
   if (!user) return null;
 
+  // console.log("user in menubar", user.id);
+
   // Fetch unread notification and message counts in parallel using Promise.all
   const [unreadNotificationsCount, unreadMessagesCount] = await Promise.all([
     prisma.notification.count({

@@ -1,9 +1,9 @@
 // Import necessary modules and components
-import loginImage from "@/assets/login-image.jpg"; // Importing the login image asset
+import loginImage from "@/assets/register-online.jpg"; // Importing the login image asset
 import { Metadata } from "next"; // Type for handling metadata in Next.js
 import Image from "next/image"; // Next.js Image component for optimized image rendering
 import Link from "next/link"; // Next.js Link component for client-side navigation
-// import GoogleSignInButton from "./google/GoogleSignInButton"; // Custom Google sign-in button component
+import GoogleSignInButton from "./google/GoogleSignInButton"; // Custom Google sign-in button component
 import LoginForm from "./LogInForm"; // Importing the LoginForm component
 
 // Metadata object for setting the title of the login page
@@ -37,7 +37,7 @@ export default function Page() {
           {/* Container for login options */}
           <div className="space-y-5">
             {/* Google sign-in button */}
-            {/* <GoogleSignInButton /> */}
+            <GoogleSignInButton />
 
             {/* Divider between Google login and manual login form */}
             <div className="flex items-center gap-3">

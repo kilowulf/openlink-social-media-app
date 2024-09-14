@@ -1,13 +1,13 @@
 "use server";
 
-import { validateRequest } from "@/auth"; 
-import prisma from "@/lib/prisma"; 
-import streamServerClient from "@/lib/stream"; 
-import { getUserDataSelect } from "@/lib/types"; 
+import { validateRequest } from "@/auth";
+import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
+import { getUserDataSelect } from "@/lib/types";
 import {
   updateUserProfileSchema,
   UpdateUserProfileValues,
-} from "@/lib/validation"; 
+} from "@/lib/validation";
 
 /**
  * updateUserProfile:
@@ -30,6 +30,7 @@ export async function updateUserProfile(values: UpdateUserProfileValues) {
   // If the user is not authenticated, throw an error
   if (!user) throw new Error("Unauthorized");
 
+  console.log("update user profile", user.id);
   // Perform a database transaction to update the user's profile in the database
   const updatedUser = await prisma.$transaction(async (tx) => {
     // Update the user's data in the 'user' table and return the selected fields

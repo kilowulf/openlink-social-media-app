@@ -71,7 +71,7 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
         open ? "flex" : "hidden", // Conditionally render sidebar based on `open` prop.
       )}
     >
-      <MenuHeader onClose={onClose} />{" "}
+      <MenuHeader onClose={onClose} />
       {/* Render the header with the close button and new chat button */}
       <ChannelList
         filters={{

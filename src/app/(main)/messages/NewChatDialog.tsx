@@ -61,7 +61,7 @@ export default function NewChatDialog({
     queryFn: async () =>
       client.queryUsers(
         {
-          id: { $ne: loggedInUser.id }, // Exclude the logged-in user from the search results.
+          id: { $ne: loggedInUser.id }, // $ne: -not equal. Exclude the logged-in user from the search results.
           role: { $ne: "admin" }, // Exclude admin users from the search results.
           ...(searchInputDebounced
             ? {
@@ -113,13 +113,10 @@ export default function NewChatDialog({
 
   return (
     <Dialog open onOpenChange={onOpenChange}>
-      {" "}
       {/* Dialog container for creating a new chat */}
       <DialogContent className="bg-card p-0">
-        {" "}
         {/* Dialog content with padding and background */}
         <DialogHeader className="px-6 pt-6">
-          {" "}
           {/* Dialog header with padding */}
           <DialogTitle>New chat</DialogTitle> {/* Title of the dialog */}
         </DialogHeader>
