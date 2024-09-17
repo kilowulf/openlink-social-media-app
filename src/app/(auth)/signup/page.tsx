@@ -21,7 +21,7 @@ export default function Page() {
               src={logo}
               alt="OpenLink Logo"
               className="mx-auto rounded-full border-4 border-gray-500 p-1" // Added object-cover and shadow
-              style={{ borderColor: "#3f819c", imageRendering: "auto" }} // Ensures image is smooth
+              style={{ borderColor: "#2c7494", imageRendering: "auto" }} // Ensures image is smooth
               width={100} // Adjust the width and height to your needs
               height={100}
             />
