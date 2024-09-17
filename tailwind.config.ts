@@ -11,6 +11,7 @@ const config = {
   ],
   prefix: "",
   theme: {
+    colors: {},
     container: {
       center: true,
       padding: "2rem",

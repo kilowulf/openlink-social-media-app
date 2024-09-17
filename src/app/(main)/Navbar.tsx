@@ -6,16 +6,16 @@ import SearchField from "@/components/SearchField";
 
 export default function Navbar() {
   return (
-    <header className="bg-card sticky top-0 z-10 shadow-sm">
+    <header className="sticky top-0 z-10 bg-card shadow-sm">
       <div className="max-w-7sl mx-auto flex flex-wrap items-center justify-center gap-5 px-5 py-3">
         <Link
           href="/"
-          className="text-sxl text-primary flex items-center gap-2 font-bold"
+          className="text-sxl flex items-center gap-2 font-bold text-primary"
         >
           <Image
             src={logo}
             alt=""
-            className="bg-secondary flex aspect-square h-[40px] w-[40px] rounded-full object-cover"
+            className="flex aspect-square h-[40px] w-[40px] rounded-full bg-secondary object-cover"
           />
           <span>OPENLiNK</span>
         </Link>

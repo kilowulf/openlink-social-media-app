@@ -32,7 +32,14 @@ export default function Page() {
       <div className="flex h-full max-h-[55rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
         {/* Left side: Login form and Google sign-in button */}
         <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
-          <Image src={logo} alt="" className="mx-auto justify-center" />
+          <Image
+            src={logo}
+            alt="OpenLink Logo"
+            className="mx-auto rounded-full border-4 border-gray-500 p-1" // Added object-cover and shadow
+            style={{ borderColor: "#3f819c", imageRendering: "auto" }} // Ensures image is smooth
+            width={100} // Adjust the width and height to your needs
+            height={100}
+          />
           {/* Title of the login page */}
           <h1 className="text-center text-3xl font-bold">Login to OPENLiNK</h1>
 

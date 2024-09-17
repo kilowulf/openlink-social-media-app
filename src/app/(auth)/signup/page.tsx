@@ -17,7 +17,14 @@ export default function Page() {
       <div className="rounded=2xl flex h-full max-h-[55rem] w-full max-w-[64rem] overflow-hidden bg-card shadow-2xl">
         <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
           <div className="space-y-1 text-center">
-            <Image src={logo} alt="" className="mx-auto justify-center" />
+            <Image
+              src={logo}
+              alt="OpenLink Logo"
+              className="mx-auto rounded-full border-4 border-gray-500 p-1" // Added object-cover and shadow
+              style={{ borderColor: "#3f819c", imageRendering: "auto" }} // Ensures image is smooth
+              width={100} // Adjust the width and height to your needs
+              height={100}
+            />
             <h1 className="text-3xl font-bold">Sign up to OPENLiNK</h1>
             <p className="text-muted-foreground">
               Connect with{" "}
