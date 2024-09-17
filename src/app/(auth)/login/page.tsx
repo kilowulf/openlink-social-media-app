@@ -1,10 +1,11 @@
 // Import necessary modules and components
-import loginImage from "@/assets/register-online.jpg"; // Importing the login image asset
+import loginImage from "@/assets/login_women.png"; // Importing the login image asset
 import { Metadata } from "next"; // Type for handling metadata in Next.js
 import Image from "next/image"; // Next.js Image component for optimized image rendering
 import Link from "next/link"; // Next.js Link component for client-side navigation
 import GoogleSignInButton from "./google/GoogleSignInButton"; // Custom Google sign-in button component
 import LoginForm from "./LogInForm"; // Importing the LoginForm component
+import logo from "@/assets/open_link_logo_favicon.png";
 
 // Metadata object for setting the title of the login page
 export const metadata: Metadata = {
@@ -28,11 +29,12 @@ export default function Page() {
     // Main container for the page layout
     <main className="flex h-screen items-center justify-center p-5">
       {/* Container for the login form and image */}
-      <div className="flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
+      <div className="flex h-full max-h-[55rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
         {/* Left side: Login form and Google sign-in button */}
         <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
+          <Image src={logo} alt="" className="mx-auto justify-center" />
           {/* Title of the login page */}
-          <h1 className="text-center text-3xl font-bold">Login to bugbook</h1>
+          <h1 className="text-center text-3xl font-bold">Login to OPENLiNK</h1>
 
           {/* Container for login options */}
           <div className="space-y-5">

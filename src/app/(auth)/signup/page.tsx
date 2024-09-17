@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import signUpImage from "@/assets/signup-img.jpg";
+import signUpImage from "@/assets/laptop_hands_table.jpg";
 import logo from "@/assets/open_link_logo_favicon.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="flex h-screen items-center justify-center p-5">
-      <div className="rounded=2xl bg-card flex h-full max-h-[55rem] w-full max-w-[64rem] overflow-hidden shadow-2xl">
+      <div className="rounded=2xl flex h-full max-h-[55rem] w-full max-w-[64rem] overflow-hidden bg-card shadow-2xl">
         <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
           <div className="space-y-1 text-center">
             <Image src={logo} alt="" className="mx-auto justify-center" />
